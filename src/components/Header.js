@@ -6,7 +6,7 @@ import AuthModal from './AuthModal';
 
 const Header = () => (
   <>
-    <Menu secondary>
+    <Menu secondary pointing>
       <Link to="/" className="item">
         LOGO
       </Link>

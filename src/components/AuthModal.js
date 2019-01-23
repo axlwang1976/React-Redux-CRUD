@@ -19,7 +19,7 @@ class AuthModal extends React.Component {
   }
 
   authHandler = async authData => {
-    this.props.signIn();
+    this.props.signIn(authData.user.uid);
   };
 
   onSignInClick = provider => {
@@ -59,6 +59,8 @@ class AuthModal extends React.Component {
           </Modal.Content>
         </Modal>
       );
+    } else if (this.props.isSignedIn === null) {
+      return null;
     } else {
       return (
         <Button primary onClick={this.onSignOutClick}>
