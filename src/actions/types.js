@@ -1,9 +1,7 @@
 export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
-export const MODAL_OPEN = 'MODAL_OPEN';
-export const MODAL_CLOSE = 'MODAL_CLOSE';
-export const CREATE_POST = 'CREATE_POST';
-export const GET_POSTS = 'GET_POSTS';
-export const GET_POST = 'GET_POST';
-export const EDIT_POST = 'EDIT_POST';
-export const DELETE_POST = 'DELETE_POST';
+export const CREATE_VIDEO = 'CREATE_VIDEO';
+export const GET_VIDEOS = 'GET_VIDEOS';
+export const GET_VIDEO = 'GET_VIDEO';
+export const EDIT_VIDEO = 'EDIT_VIDEO';
+export const DELETE_VIDEO = 'DELETE_VIDEO';

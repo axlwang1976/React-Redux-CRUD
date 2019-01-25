@@ -3,9 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import { Form, Button, Message } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-import { createPost } from '../../actions';
+import { createVideo } from '../../actions';
 
-class PostCreate extends React.Component {
+class VideoCreate extends React.Component {
   renderError = ({ error, touched }) => {
     if (touched && error) {
       return <Message error header={error} />;
@@ -15,10 +15,10 @@ class PostCreate extends React.Component {
   renderInput = ({ input, label, meta }) => {
     const className = `${meta.touched && meta.error ? 'error' : ''}`;
     const inputType = () => {
-      if (input.name === 'title') {
-        return <input {...input} autoComplete="off" />;
+      if (input.name === 'title' || input.name === 'videoLink') {
+        return <Form.Input {...input} autoComplete="off" />;
       } else {
-        return <textarea {...input} autoComplete="off" />;
+        return <Form.TextArea {...input} autoComplete="off" />;
       }
     };
     return (
@@ -31,16 +31,26 @@ class PostCreate extends React.Component {
   };
 
   onFormSubmit = formValues => {
+    console.log(formValues);
     const id = new Date().getTime();
     const newFormValues = { ...formValues, id };
-    this.props.createPost(newFormValues);
+    this.props.createVideo(newFormValues);
   };
 
   render() {
     return (
       <Form error onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
         <Field name="title" component={this.renderInput} label="Enter Title" />
-        <Field name="body" component={this.renderInput} label="Enter Content" />
+        <Field
+          name="description"
+          component={this.renderInput}
+          label="Enter Description"
+        />
+        <Field
+          name="videoLink"
+          component={this.renderInput}
+          label="Enter Video URL"
+        />
         <Button primary type="submit">
           Submit
         </Button>
@@ -54,8 +64,11 @@ const validate = formValues => {
   if (!formValues.title) {
     error.title = 'You must enter a title';
   }
-  if (!formValues.body) {
-    error.body = 'You must enter a content';
+  if (!formValues.description) {
+    error.description = 'You must enter a content';
+  }
+  if (!formValues.videoLink) {
+    error.videoLink = 'You must enter a video URL';
   }
   return error;
 };
@@ -63,9 +76,9 @@ const validate = formValues => {
 const reduxFormWrapped = reduxForm({
   form: 'postCreate',
   validate
-})(PostCreate);
+})(VideoCreate);
 
 export default connect(
   null,
-  { createPost }
+  { createVideo }
 )(reduxFormWrapped);

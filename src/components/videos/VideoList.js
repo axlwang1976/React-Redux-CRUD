@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, Item, Icon } from 'semantic-ui-react';
 
-import { getPosts } from '../../actions';
+import { getVideos } from '../../actions';
 
 class PostList extends React.Component {
   componentDidMount() {
@@ -26,8 +26,8 @@ class PostList extends React.Component {
   render() {
     return (
       <>
-        <h2>Posts</h2>
-        <List celled>{this.renderList()}</List>
+        <h2>Videos</h2>
+        {/* <List celled>{this.renderList()}</List> */}
       </>
     );
   }
@@ -39,5 +39,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getPosts }
+  { getVideos }
 )(PostList);

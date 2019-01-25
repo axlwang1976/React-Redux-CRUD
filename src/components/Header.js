@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
-import AuthModal from './AuthModal';
+import GoogleAuth from './GoogleAuth';
 
 const Header = () => (
   <>
@@ -12,9 +12,9 @@ const Header = () => (
       </Link>
       <Menu.Menu position="right">
         <Link to="/" className="item">
-          All Posts
+          All Videos
         </Link>
-        <AuthModal />
+        <GoogleAuth />
       </Menu.Menu>
     </Menu>
   </>

@@ -1,20 +1,18 @@
 import {
   SIGN_IN,
   SIGN_OUT,
-  MODAL_OPEN,
-  MODAL_CLOSE,
-  CREATE_POST,
-  GET_POSTS,
-  GET_POST,
-  EDIT_POST,
-  DELETE_POST
+  CREATE_VIDEO,
+  GET_VIDEOS,
+  GET_VIDEO,
+  EDIT_VIDEO,
+  DELETE_VIDEO
 } from './types';
 import { firebase } from '../api/firebase';
 
-export const signIn = uid => {
+export const signIn = userId => {
   return {
     type: SIGN_IN,
-    payload: uid
+    payload: userId
   };
 };
 
@@ -24,40 +22,28 @@ export const signOut = () => {
   };
 };
 
-export const modalOpen = () => {
-  return {
-    type: MODAL_OPEN
-  };
+export const createVideo = formValues => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const res = await firebase.post('/videos.json', { ...formValues, userId });
+  dispatch({ type: CREATE_VIDEO, payload: res.data });
 };
 
-export const modalClose = () => {
-  return {
-    type: MODAL_CLOSE
-  };
+export const getVideos = () => async dispatch => {
+  const res = await firebase.get('/videos.json');
+  dispatch({ type: GET_VIDEOS, payload: res.data });
 };
 
-export const createPost = formValues => async (dispatch, getState) => {
-  const { uid } = getState().auth;
-  const res = await firebase.post('/posts.json', { ...formValues, uid });
-  dispatch({ type: CREATE_POST, payload: res.data });
+export const getVideo = id => async dispatch => {
+  const res = await firebase.get(`/videos.json/${id}`);
+  dispatch({ type: GET_VIDEO, payload: res.data });
 };
 
-export const getPosts = () => async dispatch => {
-  const res = await firebase.get('/posts.json');
-  dispatch({ type: GET_POSTS, payload: res.data });
+export const editVideo = (id, formValues) => async dispatch => {
+  const res = await firebase.put(`/videos.json/${id}`, formValues);
+  dispatch({ type: EDIT_VIDEO, payload: res.data });
 };
 
-export const getPost = id => async dispatch => {
-  const res = await firebase.get(`/posts.json/${id}`);
-  dispatch({ type: GET_POST, payload: res.data });
-};
-
-export const editPost = (id, formValues) => async dispatch => {
-  const res = await firebase.put(`/posts.json/${id}`, formValues);
-  dispatch({ type: EDIT_POST, payload: res.data });
-};
-
-export const deletePost = id => async dispatch => {
-  await firebase.delete(`/posts.json/${id}`);
-  dispatch({ type: DELETE_POST, payload: id });
+export const deleteVideo = id => async dispatch => {
+  await firebase.delete(`/videos.json/${id}`);
+  dispatch({ type: DELETE_VIDEO, payload: id });
 };

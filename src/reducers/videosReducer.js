@@ -1,24 +1,24 @@
 import _ from 'lodash';
 
 import {
-  CREATE_POST,
-  GET_POSTS,
-  GET_POST,
-  EDIT_POST,
-  DELETE_POST
+  CREATE_VIDEO,
+  GET_VIDEOS,
+  GET_VIDEO,
+  EDIT_VIDEO,
+  DELETE_VIDEO
 } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case GET_POST:
+    case GET_VIDEO:
       return { ...state, [action.payload.id]: action.payload };
-    case CREATE_POST:
+    case CREATE_VIDEO:
       return { ...state, [action.payload.id]: action.payload };
-    case EDIT_POST:
+    case EDIT_VIDEO:
       return { ...state, [action.payload.id]: action.payload };
-    case DELETE_POST:
+    case DELETE_VIDEO:
       return _.omit(state, action.payload);
-    case GET_POSTS:
+    case GET_VIDEOS:
       return { ...state, ...action.payload };
     default:
       return state;
