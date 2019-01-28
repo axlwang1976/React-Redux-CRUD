@@ -7,5 +7,5 @@ import videosReducer from './videosReducer';
 export default combineReducers({
   auth: authReducer,
   form: formReducer,
-  posts: videosReducer
+  videos: videosReducer
 });

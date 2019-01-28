@@ -19,7 +19,7 @@ export default (state = {}, action) => {
     case DELETE_VIDEO:
       return _.omit(state, action.payload);
     case GET_VIDEOS:
-      return { ...state, ...action.payload };
+      return { ...state, ..._.mapKeys(action.payload, 'id') };
     default:
       return state;
   }

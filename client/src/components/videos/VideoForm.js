@@ -1,11 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Form, Button, Message } from 'semantic-ui-react';
-import { connect } from 'react-redux';
 
-import { createVideo } from '../../actions';
-
-class VideoCreate extends React.Component {
+class VideoForm extends React.Component {
   renderError = ({ error, touched }) => {
     if (touched && error) {
       return <Message error header={error} />;
@@ -30,16 +27,9 @@ class VideoCreate extends React.Component {
     );
   };
 
-  onFormSubmit = formValues => {
-    console.log(formValues);
-    const id = new Date().getTime();
-    const newFormValues = { ...formValues, id };
-    this.props.createVideo(newFormValues);
-  };
-
   render() {
     return (
-      <Form error onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
+      <Form error onSubmit={this.props.handleSubmit(this.props.onFormSubmit)}>
         <Field name="title" component={this.renderInput} label="Enter Title" />
         <Field
           name="description"
@@ -49,7 +39,7 @@ class VideoCreate extends React.Component {
         <Field
           name="videoLink"
           component={this.renderInput}
-          label="Enter Video URL"
+          label="Enter YouTube video ID"
         />
         <Button primary type="submit">
           Submit
@@ -73,12 +63,7 @@ const validate = formValues => {
   return error;
 };
 
-const reduxFormWrapped = reduxForm({
+export default reduxForm({
   form: 'postCreate',
   validate
-})(VideoCreate);
-
-export default connect(
-  null,
-  { createVideo }
-)(reduxFormWrapped);
+})(VideoForm);
