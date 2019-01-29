@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const firebase = axios.create({
+export const db = axios.create({
   baseURL: 'http://localhost:3001'
 });

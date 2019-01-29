@@ -17,8 +17,10 @@ class PostList extends React.Component {
           {this.renderBtn(video)}
           <Icon name="youtube" size="large" className="middle aligned" />
           <List.Content>
-            <List.Header>{video.title}</List.Header>
-            <List.Description>{video.description}</List.Description>
+            <Link to={`/videos/${video.id}`}>
+              <List.Header>{video.title}</List.Header>
+              <List.Description>{video.description}</List.Description>
+            </Link>
           </List.Content>
         </List.Item>
       );

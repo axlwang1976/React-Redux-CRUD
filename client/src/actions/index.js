@@ -7,7 +7,7 @@ import {
   EDIT_VIDEO,
   DELETE_VIDEO
 } from './types';
-import { firebase } from '../api/firebase';
+import { db } from '../api/db';
 import history from '../history';
 
 export const signIn = userId => {
@@ -25,29 +25,29 @@ export const signOut = () => {
 
 export const createVideo = formValues => async (dispatch, getState) => {
   const { userId } = getState().auth;
-  const res = await firebase.post('/videos', { ...formValues, userId });
+  const res = await db.post('/videos', { ...formValues, userId });
   dispatch({ type: CREATE_VIDEO, payload: res.data });
   history.push('/');
 };
 
 export const getVideos = () => async dispatch => {
-  const res = await firebase.get('/videos');
+  const res = await db.get('/videos');
   dispatch({ type: GET_VIDEOS, payload: res.data });
 };
 
 export const getVideo = id => async dispatch => {
-  const res = await firebase.get(`/videos/${id}`);
+  const res = await db.get(`/videos/${id}`);
   dispatch({ type: GET_VIDEO, payload: res.data });
 };
 
 export const editVideo = (id, formValues) => async dispatch => {
-  const res = await firebase.patch(`/videos/${id}`, formValues);
+  const res = await db.patch(`/videos/${id}`, formValues);
   dispatch({ type: EDIT_VIDEO, payload: res.data });
   history.push('/');
 };
 
 export const deleteVideo = id => async dispatch => {
-  await firebase.delete(`/videos/${id}`);
+  await db.delete(`/videos/${id}`);
   dispatch({ type: DELETE_VIDEO, payload: id });
   history.push('/');
 };
